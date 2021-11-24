@@ -13,15 +13,18 @@ const initialDog = {
 
 function App() {
   const [dog, setDog] = useState(initialDog);
+  const [loading, setloading] = useState(false)
 
   useEffect(() => {
     updateDog();
   }, []);
 
   const updateDog = (breedId) => {
+    setloading(true)
     getDog(breedId)
     .then((newDog) =>{
       setDog(newDog);
+      setloading(false)
 
     })
   }
@@ -29,7 +32,7 @@ function App() {
   return (
     <div className="app">
       <Select updateDog={updateDog}/>
-      <Card dog={dog} updateDog={updateDog} />
+      <Card dog={dog} updateDog={updateDog} loading={loading}/>
     </div>
   );
 }
